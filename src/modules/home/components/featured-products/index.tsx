@@ -6,6 +6,7 @@ const FeaturedProducts = ({
 }: {
   collections: ProductCollection[]
 }) => {
+  // console.log("collections", collections)
   return (
     <div className="py-12">
       <div className="py-12">

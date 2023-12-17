@@ -29,6 +29,42 @@ if (process.env.MEDUSA_FF_MEDUSA_V2) {
 // The API_BASE_URL is set in the .env file. It is the base URL of your Next.js app.
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000"
 
+
+/**
+ * Fetches a product by handle, using the Medusa API or the Medusa Product Module, depending on the feature flag.
+ * @param handle (string) - The handle of the product to retrieve
+ * @returns (array) - An array of products (should only be one)
+ */
+export async function getProductsByStoreId(
+  store_id: string
+): Promise<{ products: PricedProduct[] }> {
+  // if (MEDUSA_V2_ENABLED) {
+  //   const data = await fetch(`${API_BASE_URL}/api/products/${handle}`)
+  //     .then((res) => res.json())
+  //     .catch((err) => {
+  //       throw err
+  //     })
+
+  //   return data
+  // }
+
+  const { products } = await medusaRequest("GET", "/products", {
+    query: {
+      store_id,
+    },
+  })
+    .then((res) => {console.log('res', res.body); return res.body})
+
+    .catch((err) => {
+      console.log('err',err)
+      throw err
+    })
+
+  return {
+    products,
+  }
+}
+
 /**
  * Fetches a product by handle, using the Medusa API or the Medusa Product Module, depending on the feature flag.
  * @param handle (string) - The handle of the product to retrieve
@@ -202,6 +238,8 @@ export async function getCollectionByHandle(handle: string): Promise<{
 
   return data
 }
+
+
 
 /**
  * Fetches a list of products in a collection, using the Medusa API or the Medusa Product Module, depending on the feature flag.
