@@ -9,7 +9,7 @@
 </p>
 
 <h1 align="center">
-  Medusa Next.js Starter Templatess
+  Medusa Next.js Starter Templatesss
 </h1>
 
 <p align="center">
